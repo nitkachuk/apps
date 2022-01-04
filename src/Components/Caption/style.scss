@@ -1,0 +1,43 @@
+
+.caption {
+
+    display: flex;
+    padding: 0 15px 0 15px;
+
+    justify-content: space-between;
+
+    .caption-mode {
+        user-select: none;
+        cursor:pointer;
+
+        &:hover {
+            opacity: 0.8;
+        }
+    }
+
+        h2 {
+            margin-top: 10px;
+            color: #6c757d;
+        }
+
+        button {
+            width: 110px;
+            height: 45px;
+            cursor: pointer;
+            background-color: #ffffff;
+            border: 1px solid #185abd;
+            transition: 0.1s;
+            border-radius: 5px;
+
+                &:hover {
+                    background-color: #185abd;
+                    color: #ffffff;
+                    transition: 0.1s;
+                }
+
+                &:active {
+                    background-color: #15448b;
+                }
+        }
+
+}

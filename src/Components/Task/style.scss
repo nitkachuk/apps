@@ -1,0 +1,52 @@
+
+.task-box {
+
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 15px 20px 15px;
+    user-select: none;
+
+        .text-box   {
+            margin-top: 9px;
+            width: 100%;
+        }
+
+        .checkbox-box   {
+            margin: 0 10px 0 auto;
+            display: flex;
+            padding: 10px 5px 0 10px;
+            font-size: 13.5px;
+        }
+
+            input {
+                width: 15px;
+                margin-top: 1px;
+                margin-right: 10px;
+            }
+
+
+        button {
+            width: 70px;
+            height: 35px;
+            cursor: pointer;
+            background-color: #e5e4e2;
+            border: none;
+
+            
+                &:hover {
+                    background-color: #dedede;
+                }
+
+                &:active {
+                    background-color: #cccccc;
+                }
+        }
+
+    
+    .vertical--align {
+        display: flex;
+        flex-direction: column;
+        margin: auto 0 auto 0;
+    }
+
+}
