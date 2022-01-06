@@ -1,24 +1,33 @@
 
 .wrapper {
-
     width: 500px;
     margin: 70px auto 0 auto;
-
 }
 
 .tip {
-
     position: fixed;
     bottom: 0px;
     left: -10px;
-    width: 600px;
     cursor: pointer;
     transition: 0.1s;
 
-        &:hover {
-            opacity: 0.9;
-            transform: rotate( -1deg );
-            transition: 0.1s;
-        }
+    &:hover {
+        opacity: 0.9;
+        transform: rotate( -1deg );
+        transition: 0.1s;
+    }
+}
 
+.tipHidden {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    cursor: pointer;
+    transition: 0.1s;
+
+    &:hover {
+        opacity: 0.9;
+        transform: rotate( -5deg );
+        transition: 0.1s;
+    }
 }

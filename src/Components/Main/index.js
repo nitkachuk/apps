@@ -5,32 +5,23 @@ import TasksBox from '../TasksBox/';
 
 
 class Main extends Component   {
-
-
   render() {
-
-
     return( 
-
       <main>
         
-          <Input onSend={ this.props.onSend } />
+        <Input onSendClick={ this.props.onSendClick } />
 
-          <TasksBox 
-              tasks={ this.props.tasks } 
-              onSend={ this.props.onSend }
-              onRemove={ this.props.onRemove }
-              onToggleCheckbox = { this.props.onToggleCheckbox }
-              onToggleColor = { this.props.onToggleColor }
-          />
+        <TasksBox 
+          tasks={ this.props.tasks } 
+          onSendClick={ this.props.onSendClick }
+          onRemoveClick={ this.props.onRemoveClick }
+          onCheckboxClick={ this.props.onCheckboxClick }
+          onColorClick={ this.props.onColorClick }
+        />
 
       </main>
-
     );
-
   }
-
-
 }
 
 

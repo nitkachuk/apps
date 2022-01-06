@@ -2,22 +2,23 @@ import { Component } from "react";
 import './style.scss';
 import Caption from '../Caption/';
 import Main from '../Main/';
+import { capitalizeFirstLetter } from '../../utils/useful.js';
+
+const Mode = {
+  DONE: 0,
+  ACTIVE: 1,
+  ALL: 2
+}
 
 
 class Wrapper extends Component   {
-
   constructor(props) {
-
     super(props);
 
     this.state = {
 
-        tip: true,
-
         key : 4,
-
-        modes : [ "done", "active", "all" ],
-        mode : 2,   // 0 - done, 1 - active, 2 - all
+        mode : Mode.ALL,
 
         // массив заданий
         tasks : [
@@ -44,43 +45,23 @@ class Wrapper extends Component   {
             }
           
         ],
-
     };     
-
   }
-
 
   generateKey = () => {
     this.setState( { key: this.state.key + 1 } );
     return this.state.key;
   }
 
-
-  // сортировка массива заданий по важности   (пока не работает)
-  sortTasks = (  ) => {
-    //this.state.tasks.sort( this.algo );
+   buttonClearAllHandler = () => {
+    this.setState( { tasks: [] } );
   }
 
-      // алгоритм сортировки
-      algo = ( a, b ) => {
-        return b.priority - a.priority;
-      }
-
-        // очистка массива
-      clearAll = () => {
-        this.setState( { tasks: [] } );
-      }
-
-
-  // новое задание + получаем текстовое поле
-  newTask = ( txt, priority = 1 ) => {
-
+  buttonNewTaskHandler = ( txt, priority = 1 ) => {
     txt = txt.trim();
 
-    // проверка на пустое поле
-    if( txt.replace(/\s/g, '') === "" )    { alert("Пустое задание"); return; }
+    if( txt === "" )  { alert("Пустое задание"); return; }
 
-    // проверка на одинаковые задания
     let find = 0;
 
     this.state.tasks
@@ -89,15 +70,14 @@ class Wrapper extends Component   {
             if( task.text.toLowerCase() === txt.toLowerCase() )   {
                 alert("Такое задание уже есть"); 
                 find++;
+                return;
             }
           } 
         );
 
     if( find )  return;
     
-
-
-    txt = txt[0].toUpperCase() + txt.slice(1);
+    txt = capitalizeFirstLetter( txt );
 
     this.setState( { 
       tasks: [ ...this.state.tasks, 
@@ -108,115 +88,100 @@ class Wrapper extends Component   {
         } 
       ] 
     } );
-
   }
 
-  removeTask = ( key ) => {
-    
+  buttonRemoveTaskHandler = ( key ) => {
     this.setState( {   
       tasks: this.state.tasks
         .filter( task => task.key !== key )   
     } );
-
   }
 
-  // меняем режим отображения
-  setMode = (  ) => {
-
+  buttonSetModeHandler = (  ) => {
     let mode = this.state.mode + 1;
     if( mode > 2 )  mode = 0;
 
     this.setState( { mode: mode } );
-
   }
 
-  // фильтруем массив заданий по выбранному режиму
   tasksByMode = () => {
     if( this.state.mode === 0 ) return this.state.tasks.filter( task => task.priority === 0 );
     if( this.state.mode === 1 ) return this.state.tasks.filter( task => task.priority >= 1 );
     if( this.state.mode === 2 ) return this.state.tasks;
   }
 
+  checkboxHandler = ( key ) => {
+    const new_tasks = this.state.tasks.map( 
 
-  // меняем чекбокс (или состояние)
-  toggleCheckbox = ( key ) => {
+      task =>    task.key === key 
 
-        let new_tasks = this.state.tasks.map( 
+        ?   { ...task, priority: Number( !task.priority ) }
+        :   task
 
-            task =>    task.key === key 
-
-                ?   { ...task, priority: Number( !task.priority ) }
-                :   task
-
-            )
-
-        this.setState( { tasks: new_tasks } );
-
-  }
-
-
-  // меняем цвет задания
-  toggleColor = ( key, priority ) => {  
-
-    priority++;
-    if( priority > 3 )  priority = 1;
-
-    
-        let new_tasks = this.state.tasks.map( 
-
-            task =>    task.key === key 
-
-                ?   { ...task, priority: priority }
-                :   task
-
-            )
+    )
 
     this.setState( { tasks: new_tasks } );
-        
-    
-
-}
-
-
-
-  render() {
-
-    this.sortTasks();
-
-    return( 
-
-      <div className="wrapper">
-        
-          <Caption 
-            onClear = { this.clearAll } 
-            onSetMode = { this.setMode }
-            mode = { this.state.modes[ this.state.mode ] }
-          />
-
-          <Main 
-            tasks = { this.tasksByMode( this.state.tasks ) } 
-            onSend = { this.newTask } 
-            onRemove = { this.removeTask } 
-            onToggleCheckbox = { this.toggleCheckbox }
-            onToggleColor = { this.toggleColor }
-          />
-
-          { this.state.tip
-              ? <img src="/images/tip.png" 
-                  className="tip" 
-                  alt="Tip" 
-                  onClick={ () => this.setState( { tip: false } ) } 
-                />
-              : ''
-          }
-
-      </div>
-
-    );
-
   }
 
+  colorHandler = ( key, priority ) => {  
+    priority++;
+    if( priority > 3 )  priority = 1;
+    
+    const new_tasks = this.state.tasks.map( 
+      task =>    task.key === key 
 
+        ?   { ...task, priority: priority }
+        :   task
+    )
+
+    this.setState( { tasks: new_tasks } );
+}
+
+  toggleTipHandler = (val) => {
+    val 
+      ? localStorage.removeItem('tip')
+      : localStorage.setItem('tip', false)
+    this.forceUpdate();
+  }
+
+  render() {
+    return( 
+      <div className="wrapper">
+        
+        <Caption 
+          onClearClick={ this.buttonClearAllHandler } 
+          onSetModeClick={ this.buttonSetModeHandler }
+          mode={ Object.keys( Mode )[ this.state.mode ] }
+        />
+
+        <Main 
+          tasks={ this.tasksByMode( this.state.tasks ) } 
+          onSendClick={ this.buttonNewTaskHandler } 
+          onRemoveClick={ this.buttonRemoveTaskHandler } 
+          onCheckboxClick={ this.checkboxHandler }
+          onColorClick={ this.colorHandler }
+        />
+
+        { !localStorage.getItem('tip') 
+          ? <img src="/images/tip.png" 
+              className="tip" 
+              alt="Tip" 
+              onClick={ () => this.toggleTipHandler(0) } 
+              width={600}
+              height={360}
+             />
+          : <img src="/images/tip_hidden.png" 
+              className="tipHidden" 
+              alt="TipHidden" 
+              onClick={ () => this.toggleTipHandler(1) } 
+              width={90}
+              height={130}
+            />
+        }
+
+      </div>
+    );
+  }
 }
 
 

@@ -3,28 +3,19 @@ import './style.scss';
 
 
 class Header extends Component   {
-
-
   render() {
-
-
     return( 
-
       <header>
         
-          <div>
-            <img src="/images/logo.png" alt="Logo" className="logo" />
-          </div>
+        <div>
+          <img src="/images/logo.png" alt="Logo" className="logo" width={250} />
+        </div>
 
-          <h2>Nikolai ToDo App</h2>
+        <h2>Nikolai ToDo App</h2>
 
       </header>
-
     );
-
   }
-
-
 }
 
 

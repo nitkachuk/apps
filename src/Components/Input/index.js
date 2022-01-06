@@ -3,60 +3,46 @@ import './style.scss';
 
 
 class Input extends Component   {
-
   constructor(props) {
-
     super(props);
 
     this.state = {
-
         textValue: ''
-
-    };     
+    };
 
   }
 
-  // контроллируем текстовое поле
-  setValue = (e) => {
+  setValueHandler = (e) => {
     this.setState( { textValue: e.target.value } );
   }
 
-  // отправляем текст в родителя
-  sendValue = (e) => {
-
+  sendValueHandler = (e) => {
+    // это не ошибка :)  if( e ) - это дополнительная проверка
     if( e ) if( e.keyCode !== 13 )   return;
 
-    this.props.onSend( this.state.textValue );
+    this.props.onSendClick( this.state.textValue );
     this.setState( { textValue: '' } );
-
-  }
+}
 
   render() {
-
-
     return( 
-
       <div className="input-box">
         
-          <div>
-            <input type="text" 
-                onChange={ this.setValue } 
-                value={ this.state.textValue } 
-                onKeyDown={ this.sendValue }
+        <div>
+          <input type="text" 
+            onChange={ this.setValueHandler } 
+            value={ this.state.textValue } 
+            onKeyDown={ this.sendValueHandler }
             />
-          </div>
+        </div>
 
-          <div> 
-            <button onClick={ () => this.sendValue( 0 ) } > Add </button>
-          </div>
+        <div> 
+          <button onClick={ () => this.sendValueHandler( 0 ) } > Add </button>
+        </div>
 
       </div>
-
     );
-
   }
-
-
 }
 
 

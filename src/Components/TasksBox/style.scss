@@ -1,11 +1,10 @@
 
 .tasks-box {
-
     width: 100%;
     padding: 30px 0px 30px 0px;
 
-        center {
-            padding: 30px 0 30px 0;
-        }
-    
+    .holder {
+        padding: 30px 0 30px 0;
+        text-align: center;
+    }
 }

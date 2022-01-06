@@ -1,6 +1,9 @@
 
-.caption {
+$clear-button: #ffffff;
+$clear-button-border: #185abd;
+$clear-button-active: #15448b;
 
+.caption {
     display: flex;
     padding: 0 15px 0 15px;
 
@@ -10,34 +13,32 @@
         user-select: none;
         cursor:pointer;
 
-        &:hover {
-            opacity: 0.8;
-        }
+    &:hover {
+        opacity: 0.8;
+    }}
+}
+
+h2 {
+    margin-top: 10px;
+    color: #6c757d;
+}
+
+button {
+    width: 110px;
+    height: 45px;
+    cursor: pointer;
+    background-color: $clear-button;
+    border: 1px solid $clear-button-border;
+    transition: 0.1s;
+    border-radius: 5px;
+
+    &:hover {
+        background-color: $clear-button-border;
+        color: $clear-button;
+        transition: 0.1s;
     }
 
-        h2 {
-            margin-top: 10px;
-            color: #6c757d;
-        }
-
-        button {
-            width: 110px;
-            height: 45px;
-            cursor: pointer;
-            background-color: #ffffff;
-            border: 1px solid #185abd;
-            transition: 0.1s;
-            border-radius: 5px;
-
-                &:hover {
-                    background-color: #185abd;
-                    color: #ffffff;
-                    transition: 0.1s;
-                }
-
-                &:active {
-                    background-color: #15448b;
-                }
-        }
-
+    &:active {
+        background-color: $clear-button-active;
+    }
 }

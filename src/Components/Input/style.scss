@@ -1,33 +1,31 @@
 
 .input-box {
-
     display: flex;
 
     justify-content: space-between;
 
-        input {
-            width: 410px;
-            height: 35px;
-            border: 1px solid #d3d3d3;
-            border-radius: 3px;
-            padding-left: 12px;
-            font-size: 14px;
+    input {
+        width: 410px;
+        height: 35px;
+        border: 1px solid #d3d3d3;
+        border-radius: 3px;
+        padding-left: 12px;
+        font-size: 14px;
+    }
+
+    button {
+        width: 45px;
+        height: 35px;
+        cursor: pointer;
+        background-color: #e5e4e2;
+        border: none;
+
+        &:hover {
+            background-color: #dedede;
         }
 
-        button {
-            width: 45px;
-            height: 35px;
-            cursor: pointer;
-            background-color: #e5e4e2;
-            border: none;
-
-                &:hover {
-                    background-color: #dedede;
-                }
-
-                &:active {
-                    background-color: #cccccc;
-                }
+        &:active {
+            background-color: #cccccc;
         }
-
+    }
 }

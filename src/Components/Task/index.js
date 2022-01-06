@@ -1,75 +1,50 @@
 import { Component } from "react";
 import './style.scss';
+import cn from 'classnames';
 
+const colors = {
+  colorDone: "lightgreen",
+  colorNormal: "white",
+  colorImportnant: "#ffff66",
+  colorVeryImportant: "#eba5a5"
+}
 
 class Task extends Component   { 
+    changeColorHandler = (e) => {
+      this.props.onColorClick( this.props.keyValue, this.props.priority );
 
-      constructor(props) {
-
-          super(props);
-
-          this.state = {
-
-              colors : [ "lightgreen", "white", "#ffff66", "#eba5a5" ],
-
-          }
-
-      }
-      
-      changeColor = (e) => {
-        
-        this.props.onToggleColor( this.props.key_value, this.props.priority );
-
-        e.preventDefault();
-
-      }
-
+      e.preventDefault();
+    }
 
   render() { 
-
     return( 
-
       <div 
-        className="task-box" 
-        style={{ backgroundColor: this.state.colors[ this.props.priority ] }} 
-        onContextMenu = { (e) => this.changeColor(e) }
+        className={ cn('task-box', Object.keys( colors )[ this.props.priority ]) }
+        onContextMenu = { (e) => this.changeColorHandler(e) }
       >
         
-          { this.props.priority
-            ? <div className="text-box" >
-                { this.props.text } 
-              </div>
-            : <div className="text-box" style={{ textDecoration: 'line-through' }} >
-              { this.props.text } 
-              </div>
-          }
+        <div className={ this.props.priority ? "text-box-a" : "text-box-b" } >
+          { this.props.text } 
+        </div>
 
           <div className="checkbox-box">
-              <input 
-                type="checkbox" 
-                style={{ cursor: 'pointer' }} 
+            <input 
+              type="checkbox" 
+              className="checkbox"
                     
-                checked={ !this.props.priority }
+              checked={ !this.props.priority }
 
-                onChange={ () => this.props.onToggleCheckbox( this.props.key_value ) }
-              />
+              onChange={ () => this.props.onCheckboxClick( this.props.keyValue ) }
+            />
 
-                <div>Done</div>
+              <label>Done</label>
           </div>
 
-
-
-          <div> 
-            <button onClick={ () => this.props.onRemove( this.props.key_value ) } > Remove </button> 
-          </div>
+          <button onClick={ () => this.props.onRemoveClick( this.props.keyValue ) } > Remove </button> 
 
       </div>
-
     );
-
   }
-
-
 }
 
 
