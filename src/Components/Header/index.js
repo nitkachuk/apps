@@ -8,7 +8,7 @@ class Header extends Component   {
       <header>
         
         <div>
-          <img src="/images/logo.png" alt="Logo" className="logo" width={250} />
+          <img src="/images/logo.png" alt="Logo" className="logo" width={250} height={204} />
         </div>
 
         <h2>Nikolai ToDo App</h2>

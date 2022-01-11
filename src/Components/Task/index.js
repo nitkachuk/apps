@@ -17,9 +17,12 @@ class Task extends Component   {
     }
 
   render() { 
+
+    const colorClassName = Object.keys( colors )[ this.props.priority ];
+
     return( 
       <div 
-        className={ cn('task-box', Object.keys( colors )[ this.props.priority ]) }
+        className={ cn('task-box', colorClassName) }
         onContextMenu = { (e) => this.changeColorHandler(e) }
       >
         

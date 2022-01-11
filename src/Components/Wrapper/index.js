@@ -62,20 +62,12 @@ class Wrapper extends Component   {
 
     if( txt === "" )  { alert("Пустое задание"); return; }
 
-    let find = 0;
-
-    this.state.tasks
-        .forEach( 
-          task => { 
-            if( task.text.toLowerCase() === txt.toLowerCase() )   {
-                alert("Такое задание уже есть"); 
-                find++;
-                return;
-            }
-          } 
-        );
-
-    if( find )  return;
+    for( let i=0; i<this.state.tasks.length; i++ )   {
+      if( this.state.tasks[i].text.toLowerCase() === txt.toLowerCase() )   {
+        alert( "Такое задание уже есть" )
+        return;
+      }
+    }
     
     txt = capitalizeFirstLetter( txt );
 
