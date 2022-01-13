@@ -20,9 +20,7 @@ class Wrapper extends Component   {
         key : 4,
         mode : Mode.ALL,
 
-        // массив заданий
         tasks : [
-          
             {
               key: 0,
               text: "Task 1",
@@ -43,7 +41,6 @@ class Wrapper extends Component   {
               text: "Task 4",
               priority: 3,
             }
-          
         ],
     };     
   }

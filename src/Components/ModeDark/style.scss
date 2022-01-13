@@ -1,0 +1,11 @@
+.ModeButton {
+    position: fixed;
+    right: 5px;
+    top: 5px;
+    cursor: pointer;
+    opacity: 0.7;
+
+    &:hover {
+        opacity: 1;
+    }
+}
