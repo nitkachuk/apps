@@ -15,6 +15,10 @@ class Refs extends React.Component   {
     }
   }
 
+  componentDidMount = () => {
+    this.username.current.focus();
+  }
+
   submitHandle = (event) => {
     event.preventDefault();
     const username = this.username.current.value;
