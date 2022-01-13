@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Todo from './Components/Todo/';
+import Refs from './Components/Refs/';
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <Todo />
+    <Refs />
   </React.StrictMode>,
   document.getElementById('root')
 );
