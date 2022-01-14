@@ -1,16 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Loader from './Components/Loader/';
 import Todo from './Components/Todo/';
-
-const HOC = WrappedComponent => {
-  return class extends React.Component  {
-    render()  {
-      return this.props.loading ? <Loader /> : <WrappedComponent />
-    }
-  }
-}
+import { HOC } from './utils/hoc.js'
 
 const Preloader = HOC( Todo );
 
