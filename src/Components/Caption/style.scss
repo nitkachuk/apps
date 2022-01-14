@@ -1,7 +1,11 @@
 
-$clear-button: #ffffff;
-$clear-button-border: #185abd;
-$clear-button-active: #15448b;
+$clear-button-light: #ffffff;
+$clear-button-border-light: #185abd;
+$clear-button-active-light: #15448b;
+
+$clear-button-dark: #ffffff;
+$clear-button-border-dark: #5c5c5c;
+$clear-button-active-dark: #454545;
 
 .caption {
     display: flex;
@@ -23,22 +27,42 @@ h2 {
     color: #6c757d;
 }
 
-button {
+.buttonLight {
     width: 110px;
     height: 45px;
     cursor: pointer;
-    background-color: $clear-button;
-    border: 1px solid $clear-button-border;
+    background-color: $clear-button-light;
+    border: 1px solid $clear-button-border-light;
     transition: 0.1s;
     border-radius: 5px;
 
     &:hover {
-        background-color: $clear-button-border;
-        color: $clear-button;
+        background-color: $clear-button-border-light;
+        color: $clear-button-light;
         transition: 0.1s;
     }
 
     &:active {
-        background-color: $clear-button-active;
+        background-color: $clear-button-active-light;
+    }
+}
+
+.buttonDark {
+    width: 110px;
+    height: 45px;
+    cursor: pointer;
+    background-color: $clear-button-dark;
+    border: 1px solid $clear-button-border-dark;
+    transition: 0.1s;
+    border-radius: 5px;
+    
+    &:hover {
+        background-color: $clear-button-border-dark;
+        color: $clear-button-dark;
+        transition: 0.1s;
+    }
+    
+    &:active {
+        background-color: $clear-button-active-dark;
     }
 }
