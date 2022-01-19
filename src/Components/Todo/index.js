@@ -1,22 +1,31 @@
-import { Component } from "react";
+import React, { useState } from "react";
 import Header from '../Header/';
 import Wrapper from '../Wrapper/';
+import ModeSwitch from '../ModeSwitch';
+import { ThemeContext, ContextChangeMode, themes } from '../../Context/';
 
 
-class Todo extends Component   {
+function Todo()   {
+  const [ theme, setTheme ] = useState( themes.light );
 
-
-  render() {
+  const toggleTheme = () => {
+    const { light, dark } = themes;
+    setTheme( theme === dark ? light : dark );
+  };
       return( 
         <>
+          <ThemeContext.Provider value={ theme }>
+            
+            <ContextChangeMode.Provider value={ toggleTheme }>
+              <ModeSwitch />
+            </ContextChangeMode.Provider>
 
-          <Header />
-          <Wrapper />
+            <Header />
+            <Wrapper />
 
+          </ThemeContext.Provider>
         </>
       );
-
-  }
 }
 
 

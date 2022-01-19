@@ -1,48 +1,44 @@
-import { Component } from "react";
+import { useState, useRef } from "react";
 import './style.scss';
 
 
-class Input extends Component   {
-  constructor(props) {
-    super(props);
+function Input(props)   {
+  const input = useRef("");
 
-    this.state = {
-        textValue: ''
-    };
+  const [ textValue, setTextValue ] = useState( '' );
 
+  const setValueHandler = () => {
+    setTextValue( input.current.value );
   }
 
-  setValueHandler = (e) => {
-    this.setState( { textValue: e.target.value } );
+  const sendValueHandler = () => {
+    props.onSendClick( input.current.value );
+    setTextValue("");
   }
 
-  sendValueHandler = (e) => {
-    // это не ошибка :)  if( e ) - это дополнительная проверка
-    if( e ) if( e.keyCode !== 13 )   return;
+  const sendValueHandlerByKey = (e) => {
+    e.keyCode === 13 && sendValueHandler();
+  }
 
-    this.props.onSendClick( this.state.textValue );
-    this.setState( { textValue: '' } );
-}
-
-  render() {
     return( 
       <div className="input-box">
         
         <div>
-          <input type="text" 
-            onChange={ this.setValueHandler } 
-            value={ this.state.textValue } 
-            onKeyDown={ this.sendValueHandler }
+          <input 
+            type="text" 
+            ref={ input }
+            value={ textValue }
+            onKeyDown={ sendValueHandlerByKey }
+            onChange={ setValueHandler }
             />
         </div>
 
         <div> 
-          <button onClick={ () => this.sendValueHandler( 0 ) } > Add </button>
+          <button onClick={ sendValueHandler } > Add </button>
         </div>
 
       </div>
     );
-  }
 }
 
 

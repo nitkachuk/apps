@@ -1,53 +1,47 @@
-import { Component } from "react";
+import { useContext } from "react";
 import './style.scss';
 import cn from 'classnames';
+import { ThemeContext } from '../../Context'; 
 
-const colors = {
-  colorDone: "lightgreen",
-  colorNormal: "white",
-  colorImportnant: "#ffff66",
-  colorVeryImportant: "#eba5a5"
-}
 
-class Task extends Component   { 
-    changeColorHandler = (e) => {
-      this.props.onColorClick( this.props.keyValue, this.props.priority );
+function Task(props)   { 
+    const changeColorHandler = (e) => {
+      props.onColorClick( props.keyValue, props.priority );
 
       e.preventDefault();
     }
 
-  render() { 
-
-    const colorClassName = Object.keys( colors )[ this.props.priority ];
+    const theme = useContext( ThemeContext );
 
     return( 
-      <div 
-        className={ cn('task-box', colorClassName) }
-        onContextMenu = { (e) => this.changeColorHandler(e) }
-      >
-        
-        <div className={ this.props.priority ? "text-box-a" : "text-box-b" } >
-          { this.props.text } 
+      <>
+        <div 
+          className={ cn('task-box', theme.colors[ props.priority ]) }
+          onContextMenu = { (e) => changeColorHandler(e) }
+        >
+            
+        <div className={ props.priority ? "text-box-a" : "text-box-b" } >
+          { props.text } 
         </div>
 
           <div className="checkbox-box">
             <input 
               type="checkbox" 
               className="checkbox"
-                    
-              checked={ !this.props.priority }
+                        
+              checked={ !props.priority }
 
-              onChange={ () => this.props.onCheckboxClick( this.props.keyValue ) }
+              onChange={ () => props.onCheckboxClick( props.keyValue ) }
             />
 
               <label>Done</label>
           </div>
 
-          <button onClick={ () => this.props.onRemoveClick( this.props.keyValue ) } > Remove </button> 
+          <button onClick={ () => props.onRemoveClick( props.keyValue ) } > Remove </button> 
 
-      </div>
+        </div>
+      </>
     );
-  }
 }
 
 

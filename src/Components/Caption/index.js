@@ -1,23 +1,28 @@
-import { Component } from "react";
+import { useContext } from "react";
 import './style.scss';
+import { ThemeContext } from '../../Context'; 
 
 
-class Caption extends Component   {
-  render() {
+function Caption(props)   {
+  const theme = useContext( ThemeContext );
     return( 
-      <div className="caption">
-        
-        <div className="caption-mode" onClick={ () => this.props.onSetModeClick() }>
-          <h2> Todos: { this.props.mode } </h2>
-        </div>
+      <>
+        <div className="caption">
 
-        <div> 
-          <button onClick={ () => this.props.onClearClick() } > Clear all </button>
-        </div>
+          <div className="caption-mode" onClick={ () => props.onSetModeClick() }>
+            <h2> Todos: { props.mode } </h2>
+          </div>
 
-      </div>
+            <button 
+              className={ theme.button } 
+              onClick={ () => props.onClearClick() } 
+            > 
+              Clear all 
+            </button>
+
+        </div>
+      </>
     );
-  }
 }
 
 

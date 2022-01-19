@@ -1,14 +1,12 @@
-import { Component } from "react";
 import './style.scss';
 import Task from '../Task/';
 
 
-class TasksBox extends Component   {
-  render() {
+function TasksBox(props)   {
     return( 
       <div className="tasks-box">
 
-        { this.props.tasks
+        { props.tasks
           .map( ( task ) => (
 
             <Task 
@@ -16,21 +14,17 @@ class TasksBox extends Component   {
               keyValue={ task.key }
               text={ task.text }
               priority={ task.priority }
-              onSendClick={ this.props.onSendClick }
-              onRemoveClick={ this.props.onRemoveClick }
-              onCheckboxClick={ this.props.onCheckboxClick }
-              onColorClick={ this.props.onColorClick }
+              { ...props }
             />
           ))
         } 
 
         {
-          !this.props.tasks.length && <div className="holder"> Organize your tasks and do more ! </div>
+          !props.tasks.length && <div className="holder"> Organize your tasks and do more ! </div>
         }
 
       </div>
     );
-  }
 }
 
 
