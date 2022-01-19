@@ -6,12 +6,12 @@ import { HOC } from './utils/hoc.js'
 
 const Preloader = HOC( Todo );
 
-function App(props)  {
+function App()  {
   const [ loading, setLoading ] = useState( true );
 
   const timer = setTimeout(
     () => start(),
-    100
+    3000
   );
 
   const start = () => {
