@@ -1,7 +1,8 @@
 import { useContext } from "react";
-import './style.scss';
-import cn from 'classnames';
-import { ThemeContext } from '../../Context'; 
+import "./style.scss";
+import cn from "classnames";
+import { ThemeContext } from "../../Context"; 
+import PropTypes from "prop-types";
 
 
 function Task(props)   { 
@@ -16,7 +17,7 @@ function Task(props)   {
     return( 
       <>
         <div 
-          className={ cn('task-box', theme.colors[ props.priority ]) }
+          className={ cn("task-box", theme.colors[ props.priority ]) }
           onContextMenu = { (e) => changeColorHandler(e) }
         >
             
@@ -38,10 +39,16 @@ function Task(props)   {
           </div>
 
           <button onClick={ () => props.onRemoveClick( props.keyValue ) } > Remove </button> 
-
         </div>
       </>
     );
+}
+
+Task.propTypes = {
+  tasks: PropTypes.array,
+  onRemoveClick: PropTypes.func,
+  onCheckboxClick: PropTypes.func,
+  onColorClick: PropTypes.func
 }
 
 

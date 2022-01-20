@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import './style.scss';
-import { ThemeContext } from '../../Context/';
+import "./style.scss";
+import { ThemeContext } from "../../Context/";
 
 
-function  Header(props)   {
+function  Header()   {
   const theme = useContext( ThemeContext );
     return( 
       <header>

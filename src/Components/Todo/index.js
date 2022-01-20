@@ -1,23 +1,23 @@
-import React, { useState } from "react";
-import Header from '../Header/';
-import Wrapper from '../Wrapper/';
-import ModeSwitch from '../ModeSwitch';
-import { ThemeContext, ContextChangeMode, themes } from '../../Context/';
+import { useState } from "react";
+import Header from "../Header/";
+import Wrapper from "../Wrapper/";
+import ModeDark from "../ModeDark";
+import { ThemeContext, ContextChangeMode, theme } from "../../Context/";
 
 
 function Todo()   {
-  const [ theme, setTheme ] = useState( themes.light );
+  const [ themePicked, setTheme ] = useState( theme.light );
 
   const toggleTheme = () => {
-    const { light, dark } = themes;
-    setTheme( theme === dark ? light : dark );
+    const { light, dark } = theme;
+    setTheme( themePicked === dark ? light : dark );
   };
       return( 
         <>
-          <ThemeContext.Provider value={ theme }>
+          <ThemeContext.Provider value={ themePicked }>
             
             <ContextChangeMode.Provider value={ toggleTheme }>
-              <ModeSwitch />
+              <ModeDark />
             </ContextChangeMode.Provider>
 
             <Header />

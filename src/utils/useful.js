@@ -4,5 +4,5 @@ export const capitalizeFirstLetter = ( txt ) => {
 }
 
 export const tipStorage = () => {
-    return !localStorage.getItem('tip') && true;
+    return !localStorage.getItem("tip") && true;
   }

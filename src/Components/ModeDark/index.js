@@ -1,14 +1,15 @@
 import { useContext } from "react";
-import './style.scss';
-import { ContextChangeMode } from '../../Context'; 
+import "./style.scss";
+import { ThemeContext, ContextChangeMode } from "../../Context"; 
 
 
 function ModeDark()   {
+  const theme = useContext( ThemeContext );
   const onChangeLangHandler = useContext( ContextChangeMode );
     return( 
       <>
         <img 
-          src="/images/mode_night_button.png" 
+          src={ theme.toggleModeButton } 
           onClick={ onChangeLangHandler }
           className="ModeButton" 
           alt="ModeButton"

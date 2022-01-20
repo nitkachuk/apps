@@ -27,14 +27,17 @@ h2 {
     color: #6c757d;
 }
 
-.buttonLight {
+.button {
     width: 110px;
     height: 45px;
     cursor: pointer;
-    background-color: $clear-button-light;
-    border: 1px solid $clear-button-border-light;
     transition: 0.1s;
     border-radius: 5px;
+}
+
+.buttonLight {
+    background-color: $clear-button-light;
+    border: 1px solid $clear-button-border-light;
 
     &:hover {
         background-color: $clear-button-border-light;
@@ -48,13 +51,8 @@ h2 {
 }
 
 .buttonDark {
-    width: 110px;
-    height: 45px;
-    cursor: pointer;
     background-color: $clear-button-dark;
     border: 1px solid $clear-button-border-dark;
-    transition: 0.1s;
-    border-radius: 5px;
     
     &:hover {
         background-color: $clear-button-border-dark;

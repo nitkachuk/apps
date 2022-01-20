@@ -1,6 +1,8 @@
 import { useContext } from "react";
-import './style.scss';
-import { ThemeContext } from '../../Context'; 
+import "./style.scss";
+import { ThemeContext } from "../../Context"; 
+import PropTypes from "prop-types";
+import cn from "classnames";
 
 
 function Caption(props)   {
@@ -14,7 +16,7 @@ function Caption(props)   {
           </div>
 
             <button 
-              className={ theme.button } 
+              className={ cn("button", theme.button) } 
               onClick={ () => props.onClearClick() } 
             > 
               Clear all 
@@ -23,6 +25,12 @@ function Caption(props)   {
         </div>
       </>
     );
+}
+
+Caption.propTypes = {
+  mode: PropTypes.string,
+  onSetModeClick: PropTypes.func,
+  onClearClick: PropTypes.func
 }
 
 

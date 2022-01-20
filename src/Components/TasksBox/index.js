@@ -1,5 +1,6 @@
-import './style.scss';
-import Task from '../Task/';
+import "./style.scss";
+import Task from "../Task/";
+import PropTypes from "prop-types";
 
 
 function TasksBox(props)   {
@@ -25,6 +26,13 @@ function TasksBox(props)   {
 
       </div>
     );
+}
+
+TasksBox.propTypes = {
+  tasks: PropTypes.array,
+  onRemoveClick: PropTypes.func,
+  onCheckboxClick: PropTypes.func,
+  onColorClick: PropTypes.func
 }
 
 

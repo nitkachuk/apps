@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
-import ReactDOM from 'react-dom';
-import './index.scss';
-import Todo from './Components/Todo/';
-import { HOC } from './utils/hoc.js'
+import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
+import "./index.scss";
+import Todo from "./Components/Todo/";
+import { HOC } from "./utils/hoc.js"
 
 const Preloader = HOC( Todo );
 
 function App()  {
-  const [ loading, setLoading ] = useState( true );
+  const [ isLoading, setLoading ] = useState( true );
 
   const timer = setTimeout(
     () => start(),
@@ -16,15 +16,20 @@ function App()  {
 
   const start = () => {
     setLoading( false );
-    clearTimeout( timer );
   }
 
-  return <Preloader loading={ loading } />
+  useEffect( () => {
+    return () => {
+      clearTimeout( timer );
+    }
+  });
+
+  return <Preloader loading={ isLoading } />
 }
 
 ReactDOM.render(
   <React.StrictMode>
     <App />
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById("root")
 );

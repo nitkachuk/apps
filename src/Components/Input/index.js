@@ -1,11 +1,12 @@
 import { useState, useRef } from "react";
-import './style.scss';
+import "./style.scss";
+import PropTypes from "prop-types";
 
 
 function Input(props)   {
   const input = useRef("");
 
-  const [ textValue, setTextValue ] = useState( '' );
+  const [ textValue, setTextValue ] = useState( "" );
 
   const setValueHandler = () => {
     setTextValue( input.current.value );
@@ -39,6 +40,10 @@ function Input(props)   {
 
       </div>
     );
+}
+
+Input.propTypes = {
+  onSendClick: PropTypes.func
 }
 
 
