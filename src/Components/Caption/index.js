@@ -1,23 +1,24 @@
 import { useContext } from "react";
 import "./style.scss";
-import { ThemeContext } from "../../Context"; 
+import { ThemeContext, WrapperCaptionContext } from "../../Context"; 
 import PropTypes from "prop-types";
 import cn from "classnames";
 
 
-function Caption(props)   {
+function Caption()   {
   const theme = useContext( ThemeContext );
+  const { onClearClick, onSetModeClick, mode } = useContext( WrapperCaptionContext );
     return( 
       <>
         <div className="caption">
 
-          <div className="caption-mode" onClick={ () => props.onSetModeClick() }>
-            <h2> Todos: { props.mode } </h2>
+          <div className="caption-mode" onClick={ () => onSetModeClick() }>
+            <h2> Todos: {mode } </h2>
           </div>
 
             <button 
               className={ cn("button", theme.button) } 
-              onClick={ () => props.onClearClick() } 
+              onClick={ () => onClearClick() } 
             > 
               Clear all 
             </button>

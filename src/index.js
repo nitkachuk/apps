@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import "./index.scss";
 import Todo from "./Components/Todo/";
-import { HOC } from "./utils/hoc.js"
+import { HOC } from "./hoc/WithLoader.js"
 
 const Preloader = HOC( Todo );
 

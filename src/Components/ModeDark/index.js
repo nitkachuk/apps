@@ -6,10 +6,11 @@ import { ThemeContext, ContextChangeMode } from "../../Context";
 function ModeDark()   {
   const theme = useContext( ThemeContext );
   const onChangeLangHandler = useContext( ContextChangeMode );
+  const toggleButtonImage = theme.toggleModeButton;
     return( 
       <>
         <img 
-          src={ theme.toggleModeButton } 
+          src={ toggleButtonImage } 
           onClick={ onChangeLangHandler }
           className="ModeButton" 
           alt="ModeButton"

@@ -2,9 +2,10 @@ import "./style.scss";
 
 
 function Loader()   { 
+  const loaderImage = "/images/loader.gif";
     return( 
       <div className="loader">
-        <img src="/images/loader.gif" alt="Loader" />
+        <img src={ loaderImage } alt="Loader" />
       </div>
     );
 }

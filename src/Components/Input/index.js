@@ -1,9 +1,11 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import "./style.scss";
 import PropTypes from "prop-types";
+import { WrapperMainContext } from "../../Context"; 
 
 
-function Input(props)   {
+function Input()   {
+  const { onSendClick } = useContext( WrapperMainContext );
   const input = useRef("");
 
   const [ textValue, setTextValue ] = useState( "" );
@@ -13,7 +15,7 @@ function Input(props)   {
   }
 
   const sendValueHandler = () => {
-    props.onSendClick( input.current.value );
+    onSendClick( input.current.value );
     setTextValue("");
   }
 

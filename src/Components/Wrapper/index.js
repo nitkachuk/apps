@@ -3,7 +3,7 @@ import "./style.scss";
 import Caption from "../Caption/";
 import Main from "../Main/";
 import { capitalizeFirstLetter, tipStorage } from "../../utils/useful.js";
-import Context from "../../Context/";
+import { WrapperCaptionContext, WrapperMainContext } from "../../Context/";
 
 const tipCounter = { value: 0 }
 const hideCounter = 3;
@@ -142,33 +142,43 @@ function Wrapper()   {
     setTip( tipStorage() )
   }
 
+  const CaptionFunctions = { 
+    onClearClick: buttonClearAllHandler, 
+    onSetModeClick: buttonSetModeHandler, 
+    mode: Object.keys( Mode)[ mode ] 
+  };
+
+  const MainFunctions = { 
+    tasks: tasksByMode( tasks ), 
+    onSendClick: buttonNewTaskHandler, 
+    onRemoveClick: buttonRemoveTaskHandler,
+    onCheckboxClick: checkboxHandler,
+    onColorClick: colorHandler
+  };
+
+  const tipVisibleImage = "/images/tip.png";
+  const tipHiddenImage = "/images/tip_hidden.png";
     return( 
       <div className="wrapper">
         
-        <Caption 
-          onClearClick={ buttonClearAllHandler } 
-          onSetModeClick={ buttonSetModeHandler }
-          mode={ Object.keys( Mode )[ mode ] }
-        />
+        <WrapperCaptionContext.Provider value={ CaptionFunctions }>
+          <Caption />
+        </WrapperCaptionContext.Provider>
 
-        <Main 
-          tasks={ tasksByMode( tasks ) } 
-          onSendClick={ buttonNewTaskHandler } 
-          onRemoveClick={ buttonRemoveTaskHandler } 
-          onCheckboxClick={ checkboxHandler }
-          onColorClick={ colorHandler }
-        />
+        <WrapperMainContext.Provider value={ MainFunctions }>
+          <Main />
+        </WrapperMainContext.Provider>
 
         { tipCounter.value < hideCounter
           ? tip 
-            ? <img src="/images/tip.png" 
+            ? <img src={ tipVisibleImage }
                 className="tip" 
                 alt="Tip" 
                 onClick={ () => toggleTipHandler( false ) } 
                 width={600}
                 height={360}
               />
-            : <img src="/images/tip_hidden.png" 
+            : <img src={ tipHiddenImage }
                 className="tipHidden" 
                 alt="TipHidden" 
                 onClick={ () => toggleTipHandler( true ) } 

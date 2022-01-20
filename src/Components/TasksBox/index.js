@@ -1,13 +1,16 @@
+import { useContext } from "react";
 import "./style.scss";
 import Task from "../Task/";
 import PropTypes from "prop-types";
+import { WrapperMainContext } from "../../Context"; 
 
 
-function TasksBox(props)   {
+function TasksBox()   {
+  const { tasks } = useContext( WrapperMainContext );
     return( 
       <div className="tasks-box">
 
-        { props.tasks
+        { tasks
           .map( ( task ) => (
 
             <Task 
@@ -15,13 +18,12 @@ function TasksBox(props)   {
               keyValue={ task.key }
               text={ task.text }
               priority={ task.priority }
-              { ...props }
             />
           ))
         } 
 
         {
-          !props.tasks.length && <div className="holder"> Organize your tasks and do more ! </div>
+          !tasks.length && <div className="holder"> Organize your tasks and do more ! </div>
         }
 
       </div>
@@ -30,9 +32,6 @@ function TasksBox(props)   {
 
 TasksBox.propTypes = {
   tasks: PropTypes.array,
-  onRemoveClick: PropTypes.func,
-  onCheckboxClick: PropTypes.func,
-  onColorClick: PropTypes.func
 }
 
 

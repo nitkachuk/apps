@@ -22,3 +22,5 @@ export const theme = {
 export const ThemeContext = React.createContext( theme.light );
 export const ContextChangeMode = React.createContext("");
 
+export const WrapperCaptionContext = React.createContext("");
+export const WrapperMainContext = React.createContext("");
