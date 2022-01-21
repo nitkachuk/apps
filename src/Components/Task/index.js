@@ -1,53 +1,58 @@
-import { Component } from "react";
-import './style.scss';
-import cn from 'classnames';
+import { useContext } from "react";
+import "./style.scss";
+import cn from "classnames";
+import { ThemeContext } from "../../Context"; 
+import PropTypes from "prop-types";
+import { WrapperMainContext } from "../../Context"; 
 
-const colors = {
-  colorDone: "lightgreen",
-  colorNormal: "white",
-  colorImportnant: "#ffff66",
-  colorVeryImportant: "#eba5a5"
-}
 
-class Task extends Component   { 
-    changeColorHandler = (e) => {
-      this.props.onColorClick( this.props.keyValue, this.props.priority );
+const Task = (props) =>  { 
+  const { keyValue, text, priority } = props;
+  const theme = useContext( ThemeContext );
+  const { onRemoveClick, onCheckboxClick, onColorClick } = useContext( WrapperMainContext );
 
-      e.preventDefault();
-    }
+  const changeColorHandler = (e) => {
+    onColorClick( keyValue, priority );
+    e.preventDefault();
+  }
 
-  render() { 
-
-    const colorClassName = Object.keys( colors )[ this.props.priority ];
-
-    return( 
+  return( 
+    <>
       <div 
-        className={ cn('task-box', colorClassName) }
-        onContextMenu = { (e) => this.changeColorHandler(e) }
+        className={ cn("task-box", theme.colors[ priority ]) }
+        onContextMenu = { (e) => changeColorHandler(e) }
       >
-        
-        <div className={ this.props.priority ? "text-box-a" : "text-box-b" } >
-          { this.props.text } 
+            
+      <div className={ priority ? "text-box-a" : "text-box-b" } >
+        { text } 
+      </div>
+
+        <div className="checkbox-box">
+          <input 
+            type="checkbox" 
+            className="checkbox"
+                        
+            checked={ !priority }
+
+            onChange={ () => onCheckboxClick( keyValue ) }
+          />
+
+            <label>Done</label>
         </div>
 
-          <div className="checkbox-box">
-            <input 
-              type="checkbox" 
-              className="checkbox"
-                    
-              checked={ !this.props.priority }
-
-              onChange={ () => this.props.onCheckboxClick( this.props.keyValue ) }
-            />
-
-              <label>Done</label>
-          </div>
-
-          <button onClick={ () => this.props.onRemoveClick( this.props.keyValue ) } > Remove </button> 
-
+        <button onClick={ () => onRemoveClick( keyValue ) } > Remove </button> 
       </div>
-    );
-  }
+    </>
+  );
+}
+
+Task.propTypes = {
+  keyValue: PropTypes.number,
+  text: PropTypes.string,
+  priority: PropTypes.number,
+  onRemoveClick: PropTypes.func,
+  onCheckboxClick: PropTypes.func,
+  onColorClick: PropTypes.func
 }
 
 
