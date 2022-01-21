@@ -14,7 +14,7 @@ export const Mode = {
   ALL: 2
 }
 
-function Wrapper()   {
+const Wrapper = () =>  {
   const [ tip, setTip ] = useState( tipStorage() );
   const [ key, setKey ] = useState( 4 );
   const [ mode, setMode ] = useState( Mode.ALL );
@@ -109,30 +109,30 @@ function Wrapper()   {
   }
 
   const checkboxHandler = ( key ) => {
-    const new_tasks = tasks.map( 
+    const newTasks = tasks.map( 
 
-      task =>    task.key === key 
+      task => task.key === key 
 
         ?   { ...task, priority: Number( !task.priority ) }
         :   task
 
     )
 
-    setTasks( new_tasks );
+    setTasks( newTasks );
   }
 
   const colorHandler = ( key, priority ) => {  
     priority++;
     if( priority > 3 )  priority = 1;
     
-    const new_tasks = tasks.map( 
-      task =>    task.key === key 
+    const newTasks = tasks.map( 
+      task => task.key === key 
 
         ?   { ...task, priority: priority }
         :   task
     )
 
-    setTasks( new_tasks );
+    setTasks( newTasks );
 }
 
   const toggleTipHandler = (val) => {
@@ -142,13 +142,13 @@ function Wrapper()   {
     setTip( tipStorage() )
   }
 
-  const CaptionFunctions = { 
+  const captionFunctions = { 
     onClearClick: buttonClearAllHandler, 
     onSetModeClick: buttonSetModeHandler, 
     mode: Object.keys( Mode)[ mode ] 
   };
 
-  const MainFunctions = { 
+  const mainFunctions = { 
     tasks: tasksByMode( tasks ), 
     onSendClick: buttonNewTaskHandler, 
     onRemoveClick: buttonRemoveTaskHandler,
@@ -158,38 +158,39 @@ function Wrapper()   {
 
   const tipVisibleImage = "/images/tip.png";
   const tipHiddenImage = "/images/tip_hidden.png";
-    return( 
-      <div className="wrapper">
+
+  return( 
+    <div className="wrapper">
         
-        <WrapperCaptionContext.Provider value={ CaptionFunctions }>
-          <Caption />
-        </WrapperCaptionContext.Provider>
+      <WrapperCaptionContext.Provider value={ captionFunctions }>
+        <Caption />
+      </WrapperCaptionContext.Provider>
 
-        <WrapperMainContext.Provider value={ MainFunctions }>
-          <Main />
-        </WrapperMainContext.Provider>
+      <WrapperMainContext.Provider value={ mainFunctions }>
+        <Main />
+      </WrapperMainContext.Provider>
 
-        { tipCounter.value < hideCounter
-          ? tip 
-            ? <img src={ tipVisibleImage }
-                className="tip" 
-                alt="Tip" 
-                onClick={ () => toggleTipHandler( false ) } 
-                width={600}
-                height={360}
-              />
-            : <img src={ tipHiddenImage }
-                className="tipHidden" 
-                alt="TipHidden" 
-                onClick={ () => toggleTipHandler( true ) } 
-                width={90}
-                height={130}
-              />
-          : null
-        }
+      { tipCounter.value < hideCounter
+        ? tip 
+          ? <img src={ tipVisibleImage }
+              className="tip" 
+              alt="Tip" 
+              onClick={ () => toggleTipHandler( false ) } 
+              width={600}
+              height={360}
+            />
+          : <img src={ tipHiddenImage }
+              className="tipHidden" 
+              alt="TipHidden" 
+              onClick={ () => toggleTipHandler( true ) } 
+              width={90}
+              height={130}
+            />
+        : null
+      }
 
-      </div>
-    );
+    </div>
+  );
 }
 
 

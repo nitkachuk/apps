@@ -1,31 +1,32 @@
 import { useState } from "react";
 import Header from "../Header/";
 import Wrapper from "../Wrapper/";
-import ModeDark from "../ModeDark";
+import ThemeMode from "../ThemeMode";
 import { ThemeContext, ContextChangeMode, theme } from "../../Context/";
 
 
-function Todo()   {
+const Todo = () => {
   const [ themePicked, setTheme ] = useState( theme.light );
 
   const toggleTheme = () => {
     const { light, dark } = theme;
     setTheme( themePicked === dark ? light : dark );
   };
-      return( 
-        <>
-          <ThemeContext.Provider value={ themePicked }>
+      
+  return( 
+    <>
+      <ThemeContext.Provider value={ themePicked }>
             
-            <ContextChangeMode.Provider value={ toggleTheme }>
-              <ModeDark />
-            </ContextChangeMode.Provider>
+        <ContextChangeMode.Provider value={ toggleTheme }>
+          <ThemeMode />
+        </ContextChangeMode.Provider>
 
-            <Header />
-            <Wrapper />
+        <Header />
+        <Wrapper />
 
-          </ThemeContext.Provider>
-        </>
-      );
+      </ThemeContext.Provider>
+    </>
+  );
 }
 
 

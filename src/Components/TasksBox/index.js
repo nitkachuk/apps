@@ -5,29 +5,30 @@ import PropTypes from "prop-types";
 import { WrapperMainContext } from "../../Context"; 
 
 
-function TasksBox()   {
+const TasksBox = () => {
   const { tasks } = useContext( WrapperMainContext );
-    return( 
-      <div className="tasks-box">
 
-        { tasks
-          .map( ( task ) => (
+  return( 
+    <div className="tasks-box">
 
-            <Task 
-              key={ task.key }
-              keyValue={ task.key }
-              text={ task.text }
-              priority={ task.priority }
-            />
-          ))
-        } 
+      { tasks
+        .map( ( task ) => (
 
-        {
-          !tasks.length && <div className="holder"> Organize your tasks and do more ! </div>
-        }
+          <Task 
+            key={ task.key }
+            keyValue={ task.key }
+            text={ task.text }
+            priority={ task.priority }
+          />
+        ))
+      } 
 
-      </div>
-    );
+      {
+        !tasks.length && <div className="holder"> Organize your tasks and do more ! </div>
+      }
+
+    </div>
+  );
 }
 
 TasksBox.propTypes = {

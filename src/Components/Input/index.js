@@ -4,44 +4,44 @@ import PropTypes from "prop-types";
 import { WrapperMainContext } from "../../Context"; 
 
 
-function Input()   {
+const Input = () =>  {
   const { onSendClick } = useContext( WrapperMainContext );
-  const input = useRef("");
+  const inputRef = useRef("");
 
   const [ textValue, setTextValue ] = useState( "" );
 
   const setValueHandler = () => {
-    setTextValue( input.current.value );
+    setTextValue( inputRef.current.value );
   }
 
   const sendValueHandler = () => {
-    onSendClick( input.current.value );
+    onSendClick( inputRef.current.value );
     setTextValue("");
   }
 
   const sendValueHandlerByKey = (e) => {
-    e.keyCode === 13 && sendValueHandler();
+    e.keyCode === "Enter" && sendValueHandler();
   }
 
-    return( 
-      <div className="input-box">
+  return( 
+    <div className="input-box">
         
-        <div>
-          <input 
-            type="text" 
-            ref={ input }
-            value={ textValue }
-            onKeyDown={ sendValueHandlerByKey }
-            onChange={ setValueHandler }
-            />
-        </div>
-
-        <div> 
-          <button onClick={ sendValueHandler } > Add </button>
-        </div>
-
+      <div>
+        <input 
+          type="text" 
+          ref={ inputRef }
+          value={ textValue }
+          onKeyDown={ sendValueHandlerByKey }
+          onChange={ setValueHandler }
+          />
       </div>
-    );
+
+      <div> 
+        <button onClick={ sendValueHandler } > Add </button>
+      </div>
+
+    </div>
+  );
 }
 
 Input.propTypes = {

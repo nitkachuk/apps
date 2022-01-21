@@ -6,23 +6,22 @@ import { HOC } from "./hoc/WithLoader.js"
 
 const Preloader = HOC( Todo );
 
-function App()  {
-  const [ isLoading, setLoading ] = useState( true );
-
-  const timer = setTimeout(
-    () => start(),
-    3000
-  );
-
-  const start = () => {
-    setLoading( false );
-  }
+const App = () =>  {
+  const [ isLoading, setisLoading ] = useState();
 
   useEffect( () => {
-    return () => {
-      clearTimeout( timer );
-    }
-  });
+    setisLoading( true );
+
+    const timeout = setTimeout( () => {
+      start()
+    }, 3000 );
+
+    return () => { clearTimeout( timeout ); }
+  }, [] );
+
+  const start = () => {
+    setisLoading( false );
+  }
 
   return <Preloader loading={ isLoading } />
 }

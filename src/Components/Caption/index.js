@@ -5,27 +5,28 @@ import PropTypes from "prop-types";
 import cn from "classnames";
 
 
-function Caption()   {
+const Caption = () =>  {
   const theme = useContext( ThemeContext );
   const { onClearClick, onSetModeClick, mode } = useContext( WrapperCaptionContext );
-    return( 
-      <>
-        <div className="caption">
 
-          <div className="caption-mode" onClick={ () => onSetModeClick() }>
-            <h2> Todos: {mode } </h2>
-          </div>
+  return( 
+    <>
+      <div className="caption">
 
-            <button 
-              className={ cn("button", theme.button) } 
-              onClick={ () => onClearClick() } 
-            > 
-              Clear all 
-            </button>
-
+        <div className="caption-mode" onClick={ () => onSetModeClick() }>
+          <h2> Todos: {mode} </h2>
         </div>
-      </>
-    );
+
+          <button 
+            className={ cn("button", theme.button) } 
+            onClick={ () => onClearClick() } 
+          > 
+            Clear all 
+          </button>
+
+      </div>
+    </>
+  );
 }
 
 Caption.propTypes = {
