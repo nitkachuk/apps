@@ -1,48 +1,51 @@
-import { Component } from "react";
-import './style.scss';
+import { useState, useRef, useContext } from "react";
+import "./style.scss";
+import PropTypes from "prop-types";
+import { WrapperMainContext } from "../../Context"; 
 
 
-class Input extends Component   {
-  constructor(props) {
-    super(props);
+const Input = () =>  {
+  const { onSendClick } = useContext( WrapperMainContext );
+  const inputRef = useRef("");
 
-    this.state = {
-        textValue: ''
-    };
+  const [ textValue, setTextValue ] = useState( "" );
 
+  const setValueHandler = () => {
+    setTextValue( inputRef.current.value );
   }
 
-  setValueHandler = (e) => {
-    this.setState( { textValue: e.target.value } );
+  const sendValueHandler = () => {
+    onSendClick( inputRef.current.value );
+    setTextValue("");
   }
 
-  sendValueHandler = (e) => {
-    // это не ошибка :)  if( e ) - это дополнительная проверка
-    if( e ) if( e.keyCode !== 13 )   return;
+  const sendValueHandlerByKey = (e) => {
+    e.keyCode === "Enter" && sendValueHandler();
+  }
 
-    this.props.onSendClick( this.state.textValue );
-    this.setState( { textValue: '' } );
+  return( 
+    <div className="input-box">
+        
+      <div>
+        <input 
+          type="text" 
+          ref={ inputRef }
+          value={ textValue }
+          onKeyDown={ sendValueHandlerByKey }
+          onChange={ setValueHandler }
+          />
+      </div>
+
+      <div> 
+        <button onClick={ sendValueHandler } > Add </button>
+      </div>
+
+    </div>
+  );
 }
 
-  render() {
-    return( 
-      <div className="input-box">
-        
-        <div>
-          <input type="text" 
-            onChange={ this.setValueHandler } 
-            value={ this.state.textValue } 
-            onKeyDown={ this.sendValueHandler }
-            />
-        </div>
-
-        <div> 
-          <button onClick={ () => this.sendValueHandler( 0 ) } > Add </button>
-        </div>
-
-      </div>
-    );
-  }
+Input.propTypes = {
+  onSendClick: PropTypes.func
 }
 
 

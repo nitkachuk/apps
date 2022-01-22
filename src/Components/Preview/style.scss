@@ -1,0 +1,39 @@
+
+$clear-button-border-light: #000000;
+$clear-button-active-light: #15448b;
+
+html {
+    min-height: 100%;
+}
+
+.preview {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    div {
+        text-align: center;
+
+        img {
+            border-radius: 100px;
+        }
+
+        h2 {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        h4 {
+            text-decoration: underline;
+            cursor: pointer;
+            color: $clear-button-border-light;
+            transition: 0.1s;
+
+            &:hover {
+                color: $clear-button-active-light;
+                transition: 0.1s;
+            }
+        }
+    }
+}

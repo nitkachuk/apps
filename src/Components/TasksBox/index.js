@@ -1,36 +1,38 @@
-import { Component } from "react";
-import './style.scss';
-import Task from '../Task/';
+import { useContext } from "react";
+import "./style.scss";
+import Task from "../Task/";
+import PropTypes from "prop-types";
+import { WrapperMainContext } from "../../Context"; 
 
 
-class TasksBox extends Component   {
-  render() {
-    return( 
-      <div className="tasks-box">
+const TasksBox = () => {
+  const { tasks } = useContext( WrapperMainContext );
 
-        { this.props.tasks
-          .map( ( task ) => (
+  return( 
+    <div className="tasks-box">
 
-            <Task 
-              key={ task.key }
-              keyValue={ task.key }
-              text={ task.text }
-              priority={ task.priority }
-              onSendClick={ this.props.onSendClick }
-              onRemoveClick={ this.props.onRemoveClick }
-              onCheckboxClick={ this.props.onCheckboxClick }
-              onColorClick={ this.props.onColorClick }
-            />
-          ))
-        } 
+      { tasks
+        .map( ( task ) => (
 
-        {
-          !this.props.tasks.length && <div className="holder"> Organize your tasks and do more ! </div>
-        }
+          <Task 
+            key={ task.key }
+            keyValue={ task.key }
+            text={ task.text }
+            priority={ task.priority }
+          />
+        ))
+      } 
 
-      </div>
-    );
-  }
+      {
+        !tasks.length && <div className="holder"> Organize your tasks and do more ! </div>
+      }
+
+    </div>
+  );
+}
+
+TasksBox.propTypes = {
+  tasks: PropTypes.array,
 }
 
 
