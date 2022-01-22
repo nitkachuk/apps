@@ -4,7 +4,7 @@ import Wrapper from "../Wrapper/";
 import ThemeMode from "../ThemeMode";
 import { ThemeContext, ContextChangeMode, theme } from "../../Context/";
 import { Provider } from "react-redux";
-import store from "../redux/store";
+import store from "../../redux/store";
 
 
 const Todo = () => {

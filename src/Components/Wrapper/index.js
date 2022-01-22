@@ -5,7 +5,7 @@ import Main from "../Main/";
 import { capitalizeFirstLetter, tipStorage } from "../../utils/useful.js";
 import { WrapperCaptionContext, WrapperMainContext } from "../../Context/";
 import { useDispatch, useSelector } from "react-redux";
-import { setTip, setKey, setMode, setTasks } from "../redux/states";
+import { setTip, setKey, setMode, setTasks } from "../../redux/states";
 
 const tipCounter = { value: 0 }
 const hideCounter = 3;
