@@ -14,7 +14,7 @@ ReactDOM.render(
         <Route
           path="*"
           element={
-            <main style={{ padding: '1rem' }}>
+            <main>
               <p className="mistake">404 mistake</p>
             </main>
           }

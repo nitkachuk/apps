@@ -3,6 +3,8 @@ import Header from "../Header/";
 import Wrapper from "../Wrapper/";
 import ThemeMode from "../ThemeMode";
 import { ThemeContext, ContextChangeMode, theme } from "../../Context/";
+import { Provider } from "react-redux";
+import store from "../redux/store";
 
 
 const Todo = () => {
@@ -22,7 +24,10 @@ const Todo = () => {
         </ContextChangeMode.Provider>
 
         <Header />
-        <Wrapper />
+
+        <Provider store={store}>
+          <Wrapper />
+        </Provider>
 
       </ThemeContext.Provider>
     </>

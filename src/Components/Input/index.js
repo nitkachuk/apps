@@ -3,6 +3,7 @@ import "./style.scss";
 import PropTypes from "prop-types";
 import { WrapperMainContext } from "../../Context"; 
 
+const enterButtonCode = 13;
 
 const Input = () =>  {
   const { onSendClick } = useContext( WrapperMainContext );
@@ -20,7 +21,7 @@ const Input = () =>  {
   }
 
   const sendValueHandlerByKey = (e) => {
-    e.keyCode === "Enter" && sendValueHandler();
+    e.keyCode === enterButtonCode && sendValueHandler();
   }
 
   return( 

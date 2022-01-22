@@ -9,16 +9,14 @@ const ThemeMode = () =>  {
   const toggleButtonImage = theme.toggleModeButton;
 
   return( 
-    <>
-      <img 
-        src={ toggleButtonImage } 
-        onClick={ onChangeLangHandler }
-        className="ModeButton" 
-        alt="ModeButton"
-        width={50}
-        height={26} 
-      />
-    </>
+    <img 
+      src={ toggleButtonImage } 
+      onClick={ onChangeLangHandler }
+      className="ModeButton" 
+      alt="ModeButton" 
+      width={50}
+      height={26} 
+    />
   );
 }
 

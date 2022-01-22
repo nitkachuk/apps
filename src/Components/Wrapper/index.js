@@ -4,9 +4,33 @@ import Caption from "../Caption/";
 import Main from "../Main/";
 import { capitalizeFirstLetter, tipStorage } from "../../utils/useful.js";
 import { WrapperCaptionContext, WrapperMainContext } from "../../Context/";
+import { useDispatch, useSelector } from "react-redux";
+import { setTip, setKey, setMode, setTasks } from "../redux/states";
 
 const tipCounter = { value: 0 }
 const hideCounter = 3;
+const tasksTemplate = [
+  {
+    key: 0,
+    text: "Task 1",
+    priority: 0,
+  },
+  {
+    key: 1,
+    text: "Task 2",
+    priority: 1,
+  },
+  {
+    key: 2,
+    text: "Task 3",
+    priority: 2,
+  },
+  {
+    key: 3,
+    text: "Task 4",
+    priority: 3,
+  }
+];
 
 export const Mode = {
   DONE: 0,
@@ -15,36 +39,25 @@ export const Mode = {
 }
 
 const Wrapper = () =>  {
-  const [ tip, setTip ] = useState( tipStorage() );
-  const [ key, setKey ] = useState( 4 );
-  const [ mode, setMode ] = useState( Mode.ALL );
-  const [ tasks, setTasks ] = useState( [] );
+  const { tip } = useSelector((state) => state.tip);
+  const { key } = useSelector((state) => state.key);
+  const { mode } = useSelector((state) => state.mode);
+  const { tasks } = useSelector((state) => state.tasks);
+  const dispatch = useDispatch();
+
+  dispatch( setTip( tipStorage() ) );
+
+  //const [ tip, setTip ] = useState( tipStorage() );
+  //const [ key, setKey ] = useState( 4 );
+  //const [ mode, setMode ] = useState( Mode.ALL );
+  //const [ tasks, setTasks ] = useState( [] );
 
   useEffect( () => {
-    setTasks( 
-      [
-        {
-          key: 0,
-          text: "Task 1",
-          priority: 0,
-        },
-        {
-          key: 1,
-          text: "Task 2",
-          priority: 1,
-        },
-        {
-          key: 2,
-          text: "Task 3",
-          priority: 2,
-        },
-        {
-          key: 3,
-          text: "Task 4",
-          priority: 3,
-        }
-      ]
-     );
+    dispatch( 
+      setTasks( 
+        tasksTemplate
+      )
+    );
   }, [] );
 
   useEffect( () => {
@@ -56,12 +69,12 @@ const Wrapper = () =>  {
   }, [ tip ] );
 
   const generateKey = () => {
-    setKey( key + 1 );
+    dispatch( setKey( key + 1 ) );
     return key;
   }
 
   const buttonClearAllHandler = () => {
-    setTasks( [] );
+    dispatch( setTasks( [] ) );
   }
 
   const buttonNewTaskHandler = ( txt, priority = 1 ) => {
@@ -77,21 +90,25 @@ const Wrapper = () =>  {
     
   txt = capitalizeFirstLetter( txt );
 
-    setTasks(
-      [ ...tasks, 
-        { 
-          key: generateKey(), 
-          text: txt, 
-          priority: priority 
-        } 
-      ] 
+    dispatch(
+      setTasks(
+        [ ...tasks, 
+          { 
+            key: generateKey(), 
+            text: txt, 
+            priority: priority 
+          } 
+        ] 
+      )
     );
   }
 
   const buttonRemoveTaskHandler = ( key ) => {
-    setTasks(   
-      tasks
-        .filter( task => task.key !== key )
+    dispatch(
+      setTasks(   
+        tasks
+          .filter( task => task.key !== key )
+      )
     );
   }
 
@@ -99,7 +116,7 @@ const Wrapper = () =>  {
     let Mode = mode + 1;
     if( Mode > 2 )  Mode = 0;
 
-    setMode( Mode );
+    dispatch( setMode( Mode ) );
   }
 
   const tasksByMode = () => {
@@ -118,7 +135,7 @@ const Wrapper = () =>  {
 
     )
 
-    setTasks( newTasks );
+    dispatch( setTasks( newTasks ) );
   }
 
   const colorHandler = ( key, priority ) => {  
@@ -132,20 +149,20 @@ const Wrapper = () =>  {
         :   task
     )
 
-    setTasks( newTasks );
+    dispatch( setTasks( newTasks ) );
 }
 
   const toggleTipHandler = (val) => {
     val 
       ? localStorage.removeItem("tip")
       : localStorage.setItem("tip", false)
-    setTip( tipStorage() )
+    dispatch( setTip( tipStorage() ) )
   }
 
   const captionFunctions = { 
     onClearClick: buttonClearAllHandler, 
     onSetModeClick: buttonSetModeHandler, 
-    mode: Object.keys( Mode)[ mode ] 
+    mode: Object.keys( Mode )[ mode ] 
   };
 
   const mainFunctions = { 
