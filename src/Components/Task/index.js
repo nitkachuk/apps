@@ -12,7 +12,7 @@ const Task = (props) =>  {
   const { onRemoveClick, onCheckboxClick, onColorClick } = useContext( WrapperMainContext );
 
   const changeColorHandler = (e) => {
-    onColorClick( keyValue, priority );
+    onColorClick( { "keyValue": keyValue, "priority": priority } );
     e.preventDefault();
   }
 

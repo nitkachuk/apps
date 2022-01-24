@@ -20,7 +20,7 @@ ReactDOM.render(
           }
         />
       </Routes>
-      </BrowserRouter>
+    </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
 );

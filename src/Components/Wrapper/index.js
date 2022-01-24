@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import "./style.scss";
 import Caption from "../Caption/";
 import Main from "../Main/";
-import { capitalizeFirstLetter, tipStorage } from "../../utils/useful.js";
+import { tipStorage } from "../../utils/useful.js";
 import { WrapperCaptionContext, WrapperMainContext } from "../../Context/";
 import { useDispatch, useSelector } from "react-redux";
-import { setTip, setKey, setMode, setTasks } from "../../redux/states";
+import { setTip, toggleTipHandler, setTasks, buttonClearAllHandler, 
+         buttonNewTaskHandler, buttonRemoveTaskHandler, buttonSetModeHandler, 
+         checkboxHandler, colorHandler } from "../../redux/states";
 
 const tipCounter = { value: 0 }
 const hideCounter = 3;
@@ -39,18 +41,10 @@ export const Mode = {
 }
 
 const Wrapper = () =>  {
-  const { tip } = useSelector((state) => state.tip);
-  const { key } = useSelector((state) => state.key);
-  const { mode } = useSelector((state) => state.mode);
-  const { tasks } = useSelector((state) => state.tasks);
+  const { tip, mode, tasks } = useSelector((state) => state.todo);
   const dispatch = useDispatch();
 
   dispatch( setTip( tipStorage() ) );
-
-  //const [ tip, setTip ] = useState( tipStorage() );
-  //const [ key, setKey ] = useState( 4 );
-  //const [ mode, setMode ] = useState( Mode.ALL );
-  //const [ tasks, setTasks ] = useState( [] );
 
   useEffect( () => {
     dispatch( 
@@ -68,109 +62,19 @@ const Wrapper = () =>  {
     if( tipCounter.value > 2 ) tipCounter.value = tipCounter.value - 1;
   }, [ tip ] );
 
-  const generateKey = () => {
-    dispatch( setKey( key + 1 ) );
-    return key;
-  }
-
-  const buttonClearAllHandler = () => {
-    dispatch( setTasks( [] ) );
-  }
-
-  const buttonNewTaskHandler = ( txt, priority = 1 ) => {
-    txt = txt.trim();
-    if( txt === "" )  { alert("Пустое задание"); return; }
-
-    for( let i=0; i<tasks.length; i++ )   {
-      if( tasks[i].text.toLowerCase() === txt.toLowerCase() )   {
-        alert( "Такое задание уже есть" )
-        return;
-      }
-    }
-    
-  txt = capitalizeFirstLetter( txt );
-
-    dispatch(
-      setTasks(
-        [ ...tasks, 
-          { 
-            key: generateKey(), 
-            text: txt, 
-            priority: priority 
-          } 
-        ] 
-      )
-    );
-  }
-
-  const buttonRemoveTaskHandler = ( key ) => {
-    dispatch(
-      setTasks(   
-        tasks
-          .filter( task => task.key !== key )
-      )
-    );
-  }
-
-  const buttonSetModeHandler = (  ) => {
-    let Mode = mode + 1;
-    if( Mode > 2 )  Mode = 0;
-
-    dispatch( setMode( Mode ) );
-  }
-
-  const tasksByMode = () => {
-    if( mode === 0 ) return tasks.filter( task => task.priority === 0 );
-    if( mode === 1 ) return tasks.filter( task => task.priority >= 1 );
-    if( mode === 2 ) return tasks;
-  }
-
-  const checkboxHandler = ( key ) => {
-    const newTasks = tasks.map( 
-
-      task => task.key === key 
-
-        ?   { ...task, priority: Number( !task.priority ) }
-        :   task
-
-    )
-
-    dispatch( setTasks( newTasks ) );
-  }
-
-  const colorHandler = ( key, priority ) => {  
-    priority++;
-    if( priority > 3 )  priority = 1;
-    
-    const newTasks = tasks.map( 
-      task => task.key === key 
-
-        ?   { ...task, priority: priority }
-        :   task
-    )
-
-    dispatch( setTasks( newTasks ) );
-}
-
-  const toggleTipHandler = (val) => {
-    val 
-      ? localStorage.removeItem("tip")
-      : localStorage.setItem("tip", false)
-    dispatch( setTip( tipStorage() ) )
-  }
-
   const captionFunctions = { 
-    onClearClick: buttonClearAllHandler, 
-    onSetModeClick: buttonSetModeHandler, 
+    onClearClick: () => dispatch( buttonClearAllHandler() ), 
+    onSetModeClick: () => dispatch( buttonSetModeHandler() ), 
     mode: Object.keys( Mode )[ mode ] 
   };
 
   const mainFunctions = { 
-    tasks: tasksByMode( tasks ), 
-    onSendClick: buttonNewTaskHandler, 
-    onRemoveClick: buttonRemoveTaskHandler,
-    onCheckboxClick: checkboxHandler,
-    onColorClick: colorHandler
+    tasks: tasks,
+    mode: mode,
+    onSendClick: (txt) => dispatch( buttonNewTaskHandler(txt) ),
+    onRemoveClick: (key) => dispatch( buttonRemoveTaskHandler(key) ),
+    onCheckboxClick: (key) => dispatch( checkboxHandler(key) ),
+    onColorClick: (obj) => dispatch( colorHandler(obj) )
   };
 
   const tipVisibleImage = "/images/tip.png";
@@ -192,14 +96,14 @@ const Wrapper = () =>  {
           ? <img src={ tipVisibleImage }
               className="tip" 
               alt="Tip" 
-              onClick={ () => toggleTipHandler( false ) } 
+              onClick={ () => dispatch( toggleTipHandler( false ) ) } 
               width={600}
               height={360}
             />
           : <img src={ tipHiddenImage }
               className="tipHidden" 
               alt="TipHidden" 
-              onClick={ () => toggleTipHandler( true ) } 
+              onClick={ () => dispatch( toggleTipHandler( true ) ) } 
               width={90}
               height={130}
             />
