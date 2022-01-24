@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { tipReducer, keyReducer, modeReducer, tasksReducer } from "./states";
+import { Reducer } from "./states";
 
 export default configureStore({
   reducer: {
-    tip: tipReducer,
-    key: keyReducer,
-    mode: modeReducer,
-    tasks: tasksReducer
+    tip: Reducer,
+    key: Reducer,
+    mode: Reducer,
+    tasks: Reducer
   }
 });

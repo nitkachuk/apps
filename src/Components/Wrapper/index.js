@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import "./style.scss";
 import Caption from "../Caption/";
 import Main from "../Main/";
@@ -46,6 +46,11 @@ const Wrapper = () =>  {
   const dispatch = useDispatch();
 
   dispatch( setTip( tipStorage() ) );
+
+  //const [ tip, setTip ] = useState( tipStorage() );
+  //const [ key, setKey ] = useState( 4 );
+  //const [ mode, setMode ] = useState( Mode.ALL );
+  //const [ tasks, setTasks ] = useState( [] );
 
   useEffect( () => {
     dispatch( 
