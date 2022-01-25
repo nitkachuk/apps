@@ -14,7 +14,7 @@ const TasksBox = () => {
       { tasks
         .map( ( task ) => (
           
-          (mode === 0 && task.priority == 0) 
+          (mode === 0 && task.priority === 0) 
           || (mode === 1 && task.priority > 0)
           || (mode === 2 && task.priority >= 0)
 
