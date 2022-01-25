@@ -6,7 +6,7 @@ import { WrapperMainContext } from "../../Context";
 
 
 const TasksBox = () => {
-  const { tasks } = useContext( WrapperMainContext );
+  const { tasks, mode } = useContext( WrapperMainContext );
 
   return( 
     <div className="tasks-box">
@@ -14,12 +14,17 @@ const TasksBox = () => {
       { tasks
         .map( ( task ) => (
 
-          <Task 
-            key={ task.key }
-            keyValue={ task.key }
-            text={ task.text }
-            priority={ task.priority }
-          />
+          (mode === 0 && task.priority === 0) 
+          || (mode === 1 && task.priority > 0)
+          || (mode === 2 && task.priority >= 0)
+
+          ? <Task 
+              key={ task.key }
+              keyValue={ task.key }
+              text={ task.text }
+              priority={ task.priority }
+            />
+          : null
         ))
       } 
 
