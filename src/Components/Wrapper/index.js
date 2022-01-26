@@ -3,9 +3,12 @@ import "./style.scss";
 import Caption from "../Caption/";
 import Main from "../Main/";
 import { WrapperCaptionContext, WrapperMainContext } from "../../Context/";
-import Mobx from "../../store/states";
+import mainFunctions from "../../store/states";
 import { observer } from "mobx-react";
 
+const [ tip, mode, tasks, setTasks, buttonClearAllHandler, 
+  buttonNewTaskHandler, buttonRemoveTaskHandler, buttonSetModeHandler, 
+  checkboxHandler, colorHandler, toggleTipHandler ] = mainFunctions;
 const tipCounter = { value: 0 }
 const hideCounter = 3;
 const tasksTemplate = [
@@ -38,9 +41,9 @@ export const Mode = {
 }
 
 
-const Wrapper = observer( () =>  {
+const Wrapper = () =>  {
   useEffect( () => {
-    Mobx.setTasks( 
+    setTasks( 
       tasksTemplate
      );
   }, [] );
@@ -51,21 +54,21 @@ const Wrapper = observer( () =>  {
 
   useEffect( () => {
     if( tipCounter.value > 2 ) tipCounter.value = tipCounter.value - 1;
-  }, [ Mobx.tip ] );
+  }, [ tip ] );
 
   const captionFunctions = { 
-    onClearClick: Mobx.buttonClearAllHandler, 
-    onSetModeClick: Mobx.buttonSetModeHandler, 
-    mode: Object.keys( Mode)[ Mobx.mode ]
+    onClearClick: buttonClearAllHandler, 
+    onSetModeClick: buttonSetModeHandler, 
+    mode: Object.keys( Mode)[ mode ]
   };
 
   const mainFunctions = { 
-    tasks: Mobx.tasks, 
-    mode: Mobx.mode,
-    onSendClick: Mobx.buttonNewTaskHandler, 
-    onRemoveClick: Mobx.buttonRemoveTaskHandler,
-    onCheckboxClick: Mobx.checkboxHandler,
-    onColorClick: Mobx.colorHandler
+    tasks: tasks, 
+    mode: mode,
+    onSendClick: buttonNewTaskHandler, 
+    onRemoveClick: buttonRemoveTaskHandler,
+    onCheckboxClick: checkboxHandler,
+    onColorClick: colorHandler
   };
 
   const tipVisibleImage = "/images/tip.png";
@@ -83,18 +86,18 @@ const Wrapper = observer( () =>  {
       </WrapperMainContext.Provider>
 
       { tipCounter.value < hideCounter
-        ? Mobx.tip 
+        ? tip 
           ? <img src={ tipVisibleImage }
               className="tip" 
               alt="Tip" 
-              onClick={ () => Mobx.toggleTipHandler( false ) } 
+              onClick={ () => toggleTipHandler( false ) } 
               width={600}
               height={360}
             />
           : <img src={ tipHiddenImage }
               className="tipHidden" 
               alt="TipHidden" 
-              onClick={ () => Mobx.toggleTipHandler( true ) } 
+              onClick={ () => toggleTipHandler( true ) } 
               width={90}
               height={130}
             />
@@ -103,7 +106,7 @@ const Wrapper = observer( () =>  {
 
     </div>
   );
-})
+}
 
 
-export default Wrapper;
+export default observer( Wrapper );

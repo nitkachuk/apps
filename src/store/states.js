@@ -1,8 +1,8 @@
 import { capitalizeFirstLetter, tipStorage } from "../utils/useful.js";
-import { observable, computed, makeObservable, makeAutoObservable, action } from "mobx";
+import { makeAutoObservable } from "mobx";
 
 
-class Mobx {
+class mainFunctions {
     tip = tipStorage();
     key = 4;
     mode = 2;
@@ -108,4 +108,4 @@ class Mobx {
   }
 
 
-  export default new Mobx()
+  export default new mainFunctions()
