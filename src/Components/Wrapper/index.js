@@ -1,15 +1,13 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import "./style.scss";
 import Caption from "../Caption/";
 import Main from "../Main/";
 import { WrapperCaptionContext, WrapperMainContext } from "../../Context/";
-import mainFunctions from "../../store/states";
+import stateHolder from "../../store/states";
 import { observer } from "mobx-react";
 
-const [ tip, mode, tasks, setTasks, buttonClearAllHandler, 
-  buttonNewTaskHandler, buttonRemoveTaskHandler, buttonSetModeHandler, 
-  checkboxHandler, colorHandler, toggleTipHandler ] = mainFunctions;
-const tipCounter = { value: 0 }
+
+const tipCounter = { value: 0 };
 const hideCounter = 3;
 const tasksTemplate = [
   {
@@ -34,7 +32,7 @@ const tasksTemplate = [
   }
 ];
 
-export const Mode = {
+const Mode = {
   DONE: 0,
   ACTIVE: 1,
   ALL: 2
@@ -42,6 +40,10 @@ export const Mode = {
 
 
 const Wrapper = () =>  {
+  const { tip, mode, tasks, setTasks, buttonClearAllHandler, 
+          buttonNewTaskHandler, buttonRemoveTaskHandler, buttonSetModeHandler, 
+          checkboxHandler, colorHandler, toggleTipHandler } = stateHolder;
+
   useEffect( () => {
     setTasks( 
       tasksTemplate
