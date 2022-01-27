@@ -13,7 +13,7 @@ const App = () =>  {
       start()
     }, 3000 );
 
-    return () => { clearTimeout( timeout ); }
+    return () => clearTimeout( timeout );
   }, [] );
 
   const start = () => {

@@ -7,6 +7,7 @@ import { WrapperMainContext } from "../../Context";
 const Input = () =>  {
   const { onSendClick } = useContext( WrapperMainContext );
   const inputRef = useRef("");
+  const buttonEnter = 13;
 
   const [ textValue, setTextValue ] = useState( "" );
 
@@ -20,7 +21,7 @@ const Input = () =>  {
   }
 
   const sendValueHandlerByKey = (e) => {
-    e.keyCode === "Enter" && sendValueHandler();
+    e.keyCode === buttonEnter && sendValueHandler();
   }
 
   return( 
