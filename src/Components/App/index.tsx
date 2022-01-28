@@ -5,19 +5,17 @@ import { IPropsPreloader } from "./types";
 
 
 const App: React.FC = () =>  {
-  const [ isLoading, setisLoading ] = useState<boolean>( true );
+  const { loaderHandler, Component } = useLoader(Todo);
 
   useEffect( () => {
     const timeout = setTimeout( () => {
-      setisLoading( false );
+      loaderHandler( false );
     }, 3000 );
 
     return () => clearTimeout( timeout );
   }, [] );
 
-  const Preloader: React.FC<IPropsPreloader> = useLoader( Todo );
-
-  return <Preloader loading={ isLoading } />
+  return Component
 }
 
 

@@ -1,4 +1,4 @@
-import { capitalizeFirstLetter, tipStorage } from "../utils/useful.js";
+import { capitalizeFirstLetter, tipStorage } from "../utils/useful";
 import { makeAutoObservable } from "mobx";
 import { Itasks, Itheme } from "./types";
 
