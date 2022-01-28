@@ -1,9 +1,10 @@
+import React from "react";
 import "./style.scss";
 import { Link } from "react-router-dom";
 
 
-const Preview = () => { 
-  const loaderImage = "/images/Nikolai.jpg";
+const Preview: React.FC = () => { 
+  const loaderImage: string = "/images/Nikolai.jpg";
 
   return( 
     <div className="preview">
