@@ -1,8 +1,8 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Preview from "./Components/Preview/";
-import App from "./Components/App/";
+import Preview from "./Components/Preview";
+import App from "./Components/App";
 import "./index.scss";
 
 ReactDOM.render(
@@ -14,7 +14,7 @@ ReactDOM.render(
         <Route
           path="*"
           element={
-            <main style={{ padding: '1rem' }}>
+            <main>
               <p className="mistake">404 mistake</p>
             </main>
           }

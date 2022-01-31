@@ -1,12 +1,12 @@
-import { useContext } from "react";
+import React from "react";
 import "./style.scss";
-import Task from "../Task/";
-import PropTypes from "prop-types";
-import { WrapperMainContext } from "../../Context"; 
+import Task from "../Task";
+import state from "../../store/states";
+import { observer } from "mobx-react";
 
 
-const TasksBox = () => {
-  const { tasks, mode } = useContext( WrapperMainContext );
+const TasksBox: React.FC = () => {
+  const { tasks, mode } = state;
 
   return( 
     <div className="tasks-box">
@@ -36,9 +36,5 @@ const TasksBox = () => {
   );
 }
 
-TasksBox.propTypes = {
-  tasks: PropTypes.array,
-}
 
-
-export default TasksBox;
+export default observer( TasksBox );
