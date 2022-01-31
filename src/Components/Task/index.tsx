@@ -3,10 +3,10 @@ import "./style.scss";
 import cn from "classnames";
 import state from "../../store/states";
 import { observer } from "mobx-react";
-import { Iprops } from "./types";
+import { ITaskProps } from "./types";
 
 
-const Task: React.FC<Iprops> = (props) =>  { 
+const Task: React.FC<ITaskProps> = (props) =>  { 
   const { keyValue, text, priority } = props;
   const { themeDark, theme, 
           buttonRemoveTaskHandler, checkboxHandler, colorHandler } = state;

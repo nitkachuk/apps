@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Todo from "../Todo";
 import { useLoader } from "../../hooks/useLoader";
-import { IPropsPreloader } from "./types";
 
 
 const App: React.FC = () =>  {

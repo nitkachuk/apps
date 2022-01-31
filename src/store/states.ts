@@ -1,6 +1,6 @@
 import { capitalizeFirstLetter, tipStorage } from "../utils/useful";
 import { makeAutoObservable } from "mobx";
-import { Itasks, Itheme } from "./types";
+import { ITasks, ITheme } from "./types";
 
 
 class MainFunctions {
@@ -8,10 +8,10 @@ class MainFunctions {
     key: number = 4;
     mode: number = 2;
     modeNames: Array<string> = [ "DONE", "ACTIVE", "ALL" ];
-    tasks: Array<Itasks> = [];
+    tasks: Array<ITasks> = [];
     themeDark: number = 0;
 
-    theme: Itheme = {
+    theme: ITheme = {
       logo: [ "logo.png", "logo_dark.png" ],
       button: [ "buttonLight", "buttonDark" ],
       colors: [
@@ -28,7 +28,7 @@ class MainFunctions {
       makeAutoObservable( this );
     }
 
-    setTasks = ( val: Array<Itasks> ) => {
+    setTasks = ( val: Array<ITasks> ) => {
       this.tasks = val;
     }
 

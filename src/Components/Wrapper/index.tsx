@@ -4,34 +4,35 @@ import Caption from "../Caption";
 import Main from "../Main";
 import state from "../../store/states";
 import { observer } from "mobx-react";
-import { Itasks } from "../../store/types";
+import { ITasks } from "../../store/types";
 import Tip from "../Tip";
+
+const tasksTemplate: Array<ITasks> = [
+  {
+    key: 0,
+    text: "Task 1",
+    priority: 0,
+  },
+  {
+    key: 1,
+    text: "Task 2",
+    priority: 1,
+  },
+  {
+    key: 2,
+    text: "Task 3",
+    priority: 2,
+  },
+  {
+    key: 3,
+    text: "Task 4",
+    priority: 3,
+  }
+];
 
 const Wrapper: React.FC = () =>  {
   const { setTasks } = state;
-  const tasksTemplate: Array<Itasks> = [
-    {
-      key: 0,
-      text: "Task 1",
-      priority: 0,
-    },
-    {
-      key: 1,
-      text: "Task 2",
-      priority: 1,
-    },
-    {
-      key: 2,
-      text: "Task 3",
-      priority: 2,
-    },
-    {
-      key: 3,
-      text: "Task 4",
-      priority: 3,
-    }
-  ];
-
+  
   useEffect( () => {
     setTasks( 
       tasksTemplate
